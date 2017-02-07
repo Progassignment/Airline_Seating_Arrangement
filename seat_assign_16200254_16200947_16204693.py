@@ -69,3 +69,42 @@ print (len(Occ_Seats))
  
 #csv = np.genfromtxt ('bookings.csv', delimiter=",")   
 #print (csv)
+
+# Functions for validation
+def Read_csv(filename):
+    Booking_Temp_df=pd.Read_csv(filename, names=['Booking_Name','Booking_Count'])
+    return Bookings_Temp_df
+    #Bookings_df= pd.read_csv(filename)
+
+# Allocation of seats as booking comes in 
+def Seat_Allocation(index, rows, Avl_Seats, All_seats):
+    Booking_Count = rows['Booking_Count']
+
+#    Allocations of seats side by side
+    for row in range(All_Seats.shape[0]):
+        if(Booking_Count!=0 and All_Seats[row][0]>=Booking_Count):
+            for column in range(All_Seats.shape[1]):
+                if(All_Seats[row][column]==0):
+                    All_Seats[row][column]=index
+                    Booking_Count -=1
+                    Avl_Seats-=1
+                    All_Seats[row][0]-=1
+                if Booking_Count ==0:
+#                    print(Booking_Count,Avl_Seats,All_Seats[row][0])
+                    break
+#    No Allocation done and book separately
+    if(Booking_Count == rows['Booking_Count']):
+        print(index,"Not possible to allocate side by side")
+        for row in range(All_Seats.shape[0]):
+            if(Booking_Count!=0 and All_Seats[row][0]!=0):
+                for column in range(All_Seats.shape[1]):
+                    if(All_Seats[row][column]==0):
+                        All_Seats[row][column]=index
+                        Booking_Count -=1
+                        All_Seats-=1
+                        All_Seats[row][0]-=1
+                    if Booking_Count ==0:
+#                        print(Booking_Count,Avl_Seats,All_Seats[row][0])
+                        break
+    
+      return Avl_Seats,All_Seats
