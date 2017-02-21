@@ -182,3 +182,70 @@ def read_csv():
     return passenger_bookings
 
 passenger_bookings = read_csv()
+
+#Updated by Rohit
+#Added logic for seat allocation
+
+def seat_allocation(col,row,available_seats, seat_layout):
+    #global available_seats
+    pass_count = row['passenger_count']
+    global sep_pass
+    #print ("test")
+    #print (row['passenger_count'])
+
+    # Adjacent seat allocation for passengers
+    for all_rows in range(seat_layout.shape[0]):
+        if (pass_count != 0 and seat_layout[all_rows][0] >= pass_count):  #1st col index
+            print(seat_layout[all_rows][0])
+            for all_columns in range(seat_layout.shape[1]):
+                if (seat_layout[all_rows][all_columns] == 0):
+
+                    print(seat_layout[all_rows][all_columns])
+                    seat_layout[all_rows][all_columns] = col
+                    print("All rows")
+                    print(all_rows)
+                    print ("all cols")
+                    print(all_columns)
+                    print ("col")
+                    print(col)
+                    pass_count -= 1
+                    print(pass_count)
+                    available_seats -= 1
+                    print(available_seats)
+                    seat_layout[all_rows][0] -= 1
+                    print(seat_layout)
+                    update_seat_allocation(row['passenger_name'],all_rows, all_columns)
+                    # print("Passe count")
+                    # print(available_seats)
+                    # print("Seat layout")
+
+                if pass_count == 0:
+                    #print(pass_count,available_seats,seat_layout[all_rows][0])
+                   #print ("No more")
+                   break
+
+   #Book seats separately in case adjacent allocation is not possible
+    if (pass_count == row['passenger_count']):
+         print(col, "Adjacent booking is not possible")
+         last_row = 0
+         for all_rows in range(seat_layout.shape[0]):
+             if (pass_count != 0 and seat_layout[all_rows][0] != 0):
+                 for all_columns in range(seat_layout.shape[1]):
+                     if (seat_layout[all_rows][all_columns] == 0):
+                         if (pass_count == row['passenger_count']):
+                             last_row = all_rows
+                         seat_layout[all_rows][all_columns] = col
+                         pass_count -= 1
+                         available_seats -= 1
+                         seat_layout[all_rows][0] -= 1
+                         update_seat_allocation(row['passenger_name'], all_rows, all_columns)
+
+                         if (last_row != all_rows):
+                             #print(pass_count, available_seats, seat_layout[all_rows][0])
+                             sep_pass +=1
+                             print("sep")
+                             print(sep_pass)
+
+                     if pass_count == 0:
+                         break
+    return available_seats, seat_layout
