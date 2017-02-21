@@ -29,3 +29,36 @@ def db_connection():
 
 
 connection =db_connection()
+
+# *******************************************************Retrieve and update database metrics*******************************************************#
+def retrieve_metrics():
+    global cursor, refused_pass, sep_pass
+    cursor.execute('SELECT * FROM metrics')  # retrieve data from metrics table
+    row = cursor.fetchone()
+    refused_pass = row[0]
+    sep_pass = row[1]
+    print(refused_pass, ",", sep_pass)
+    return
+
+
+refused_pass = retrieve_metrics()
+
+
+def update_metrics(connection):
+    global cursor, refused_pass, sep_pass
+    cursor.execute("update metrics " + \
+                   " set passengers_refused= ?, passengers_separated= ?" \
+                   , (refused_pass, sep_pass))  # update data in the metrics table
+    connection.commit()
+    return
+
+
+def update_seat_allocation(passenger_name, num_row, num_col):
+    global cursor, FLIGHT_SEATS, connection
+#    print(booking_name, row_num+1, FLIGHT_SEATS[column_num-1])
+    cursor.execute("update seating " + \
+                      " set name = ? " + \
+                      " where row = ? and seat = ? " \
+                      , (passenger_name, (num_row+1), FLIGHT_SEATS[num_col+1]))
+    connection.commit()
+    return
