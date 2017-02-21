@@ -38,6 +38,29 @@ def retrieve_metrics():
     refused_pass = row[0]
     sep_pass = row[1]
     print(refused_pass, ",", sep_pass)
+    
+    # Function to create matrix of seating plan
+
+def get_seat_layout(row_count, col_count):
+    seat_layout = np.zeros((row_count, col_count + 1))  # Add additional column to keep count of available seats
+    seat_layout[:, 0] = col_count
+    return seat_layout
+
+
+seat_layout = get_seat_layout(row_count, col_count)
+
+def airplane_layout(row_count, col_count):
+    seat_layout = get_seat_layout(row_count, col_count)
+    available_seats = np.sum(seat_layout[:, 0])
+    print("Available number of seats :")
+    print(available_seats)
+    print("Flight seat layout with available seats index")
+    print(seat_layout)
+    return available_seats
+
+
+available_seats = airplane_layout(row_count, col_count)
+
     return
 
 
