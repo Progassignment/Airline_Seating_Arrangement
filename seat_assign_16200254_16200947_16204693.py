@@ -62,3 +62,39 @@ def update_seat_allocation(passenger_name, num_row, num_col):
                       , (passenger_name, (num_row+1), FLIGHT_SEATS[num_col+1]))
     connection.commit()
     return
+
+# *******************************************************Flight seating layout************************************************#
+# Function to get total number of seats
+def layout_get_total_seats():
+    All_seats = []
+    global cursor
+    for row in cursor.execute('select row,seat from seating'):
+        All_seats.append(row)
+    return All_seats
+
+
+All_Seats = layout_get_total_seats()
+
+
+# Function to get available seats
+def layout_get_available_seats():
+    Avl_Seats = []
+    global cursor
+    # print ("Available seats are :")
+    for row in cursor.execute('select row, seat from seating where name = "" '):
+        Avl_Seats.append(row)
+    # seats = np.array([Avl_Seats])
+    return Avl_Seats
+
+
+Avl_Seats = layout_get_available_seats()
+
+
+# Function to get occupied seats
+def layout_get_occupied_seats():
+    Occ_Seats = []
+    global cursor
+    # print ("Occupied seats are :")
+    for row in cursor.execute('select row, seat from seating where name != "" '):
+        Occ_Seats.append(row)
+    return Occ_Seats
