@@ -147,3 +147,26 @@ def layout_get_rows(Avl_Seats, All_seats):
 
 
 row_count = layout_get_rows(Avl_Seats, All_seats=layout_get_total_seats())
+
+# Updated by Lisha
+# Function to create matrix of seating plan
+
+def get_seat_layout(row_count, col_count):
+    seat_layout = np.zeros((row_count, col_count + 1))  # Add additional column to keep count of available seats
+    seat_layout[:, 0] = col_count
+    return seat_layout
+
+
+seat_layout = get_seat_layout(row_count, col_count)
+
+def airplane_layout(row_count, col_count):
+    seat_layout = get_seat_layout(row_count, col_count)
+    available_seats = np.sum(seat_layout[:, 0])
+    print("Available number of seats :")
+    print(available_seats)
+    print("Flight seat layout with available seats index")
+    print(seat_layout)
+    return available_seats
+
+
+available_seats = airplane_layout(row_count, col_count)
