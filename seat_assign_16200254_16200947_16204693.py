@@ -170,3 +170,15 @@ def airplane_layout(row_count, col_count):
 
 
 available_seats = airplane_layout(row_count, col_count)
+
+#Updated by Rohit
+#Function to read booking data
+def read_csv():
+    passenger_bookings = pd.read_csv('bookings.csv', names=['passenger_name', 'passenger_count'])
+    #passenger_count = np.array([passenger_bookings['passenger_count']])
+    #print(passenger_bookings)
+    #print("Passenger count:")
+    print(passenger_bookings['passenger_name'])
+    return passenger_bookings
+
+passenger_bookings = read_csv()
