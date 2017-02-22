@@ -8,7 +8,7 @@
 import numpy as np  # Import numpy
 import pandas as pd  # Import pandas
 import sqlite3
-
+# initialization of objects
 connection = None
 cursor = None
 
