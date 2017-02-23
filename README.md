@@ -23,3 +23,4 @@ CORRUPTED csv file:
   b) FLOATING TYPE inputs in the csv file - the output is the same as it had been given the floor of the decimals (integers). With 0       integer (similarly with a decimal positive and <0 ) the programm is not increasing the number of the refused passengers.
  c) NON-REAL INTEGERS and fractions-  Error:the program stops running. 
  d) NEGATIVE INTEGER- as the integers are not considered with their absolute values, the passenger (refused and adjacent) counts decrease according to negative number.
+ e) bookings with the same passenger name- in this case the multiple entries of one name are considered (except for the initial name which is considered as unique and the booking is happening) as blank rows and we take the output of the case (a) of the corrupted files.
