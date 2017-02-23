@@ -12,14 +12,11 @@ After the connection between the database and code is established, we built diff
 data.db bookings.csv. To implement this criteria we have imported system in our code and ckecked ( if (len(sys.argv)==3)) for the command the line criteria before executing the main function.If the criteria is satisfied, the main function is executed and the functions are called in the order in which they were defined. 
 At the end of the main function two metrics are updated: number of passengers that were refused allocation(refused_pass) and number of passengers that have been allocated away from any other member(sep_pass), in the database.
 
-TEST CASES:
+TEST CASES RESULTS:
 Given seating configuration:
-i) There are no available seats
-ii) no adjacent seat is available
-iii) only adjacent seats are available
+i) There are no available seats - expected results
+ii) no adjacent seat is available - expected results
+iii) only adjacent seats are available - expected results
 iv) corrupted csv file (empty line, non integer value)
-And, also, a different db file was created to check the above four cases
-with a different seating configuration for the above four cases
-
-Results
-Our code is working for all the above cases.
+  a) empty lines (blank rows)- the output of the refused passengers was increasing the count according to blank rows. We tried to overcome this error giving to our code in the read_csv function the skip_blank but it doesn't work.
+  b) non integer inputs in the csv file - the output is the same as it had been given the floor of the decimals (integers). With 0 integer (similarly with a decimal positive and <0 ) the programm is not increasing the number of the refused passengers.
